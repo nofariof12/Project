@@ -1,0 +1,28 @@
+
+.register-section {
+  font-size: 1.5rem; /* adjust the font size to your preference */
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    font-size: 2rem; 
+  }
+  h2 {
+    font-size: 3rem; /* adjust the font size to your preference */
+    text-align: center; /* center the text */
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #0ff, 0 0 60px #0ff, 0 0 70px #0ff, 0 0 80px #0ff; /* add the glowing effect */
+    animation: glow 1s ease-in-out infinite alternate; /* animate the glowing effect */
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0ff, 0 0 50px #0ff, 0 0 60px #0ff, 0 0 70px #0ff;
+    }
+    
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #0ff, 0 0 60px #0ff, 0 0 70px #0ff, 0 0 80px #0ff;
+    }
+  }
