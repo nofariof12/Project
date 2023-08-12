@@ -89,9 +89,6 @@ function Display({ activeMenu }) {
   return (
     <div className="display">
       {activeMenu === "My history" && <div>This is my history</div>}
-      {activeMenu === "Historical_and_current_rates" && (
-        <div>This is historical and current rates</div>
-      )}
     </div>
   );
 }
