@@ -5,20 +5,26 @@ import 'react-calendar/dist/Calendar.css'; // Import calendar styles
 
 function MyCalendar({ activeMenu }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  
   const handleDateChange = (date) => {
     setSelectedDate(date);
   }
-  console.log("in Calendar")
+
+  console.log(activeMenu)
+  
   return (
-    <div className='calendar-container'>
-      <h1>My Calendar</h1>
-      <Calendar
-        onChange={handleDateChange}
-        value={selectedDate}
-      />
-    </div>
+    activeMenu === "Historical_and_current_rates" ? (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <h1>My Calendar</h1>
+        <Calendar
+          onChange={handleDateChange}
+          value={selectedDate}
+        />
+      </div>
+    ) : null
   )
 }
+
 
 
 
