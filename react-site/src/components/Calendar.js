@@ -14,7 +14,7 @@ function MyCalendar({ activeMenu }) {
   
   return (
     activeMenu === "Historical_and_current_rates" ? (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100vh' }}>
         <h1>My Calendar</h1>
         <Calendar
           onChange={handleDateChange}
