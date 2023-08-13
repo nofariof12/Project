@@ -10,7 +10,7 @@ function MyCalendar({ activeMenu }) {
   }
   console.log("in Calendar")
   return (
-    <div>
+    <div className='calendar-container'>
       <h1>My Calendar</h1>
       <Calendar
         onChange={handleDateChange}
