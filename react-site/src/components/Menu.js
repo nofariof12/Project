@@ -5,23 +5,24 @@ function Menu({ setActiveMenu }) {
   const handleCurrencyConversionClick = () => {
     setActiveMenu("Currency_conversion");
   };
-  const myCalendar = () => {
+  const setActiveMenuCalendar = () => {
       setActiveMenu("Historical_and_current_rates");
+      console.log("test")
   }
   
   
   return (
     <div className="menu">
+      <div className="menu-item" onClick={setActiveMenuCalendar} >
+        Historical and future rates
+      </div>
       <div className="menu-item" onClick={() => setActiveMenu("My_history")}>
         My history
       </div>
       <div className="menu-item" onClick={handleCurrencyConversionClick}>
         Currency conversion
       </div>
-      <div className="menu-item" onClick={myCalendar} >
-        Historical and future rates
-        <myCalendar/>
-      </div>
+
     </div>
   );
 }

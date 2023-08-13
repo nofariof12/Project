@@ -8,6 +8,7 @@ function MyCalendar({ activeMenu }) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   }
+  console.log("in Calendar")
   return (
     <div>
       <h1>My Calendar</h1>
