@@ -1,0 +1,4 @@
+div.result {
+  font-size: 24px; /* Adjust the font size to your preference */
+  animation: pulsate 1s infinite; /* Apply the pulsating animation */
+}
