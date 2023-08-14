@@ -19,7 +19,7 @@ function CalendarWithCSVData() {
 
   const formattedCsvData = csvData.map(item => ({
     ...item,
-    dt: new Date(item.dt), // Convert date strings to Date objects
+    ds: new Date(item.ds), // Convert date strings to Date objects
   }));
 
   const handleDateChange = date => {
@@ -36,8 +36,6 @@ function CalendarWithCSVData() {
           const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
           const matchingEvents = formattedCsvData.filter(item => {
           const eventDate = item.date.toISOString().split('T')[0]; // Convert to ISO date string
-          console.log(eventDate);
-          console.log(formattedCsvData);
             return eventDate === formattedDate;
           
           });
