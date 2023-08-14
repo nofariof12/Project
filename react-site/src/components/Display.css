@@ -1,0 +1,10 @@
+.display{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    font-size: 2rem; 
+    color: azure;
+    margin: 10px;
+}

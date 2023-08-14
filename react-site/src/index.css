@@ -25,6 +25,7 @@ img {
 
 Footer {
   display: flex;
+  color: aliceblue;
   justify-content: center;
   align-items: center;
   height: 100px;

@@ -7,7 +7,6 @@ function Menu({ setActiveMenu }) {
   };
   const setActiveMenuCalendar = () => {
       setActiveMenu("Historical_and_current_rates");
-      console.log("test")
   }
   
   
@@ -21,6 +20,7 @@ function Menu({ setActiveMenu }) {
       </div>
       <div className="menu-item" onClick={handleCurrencyConversionClick}>
         Currency conversion
+        
       </div>
 
     </div>

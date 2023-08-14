@@ -9,19 +9,30 @@ function MyCalendar({ activeMenu }) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   }
-
-  console.log(activeMenu)
   
   return (
     activeMenu === "Historical_and_current_rates" ? (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100vh' }}>
-        <h1>My Calendar</h1>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
         />
+        <br></br>
+        <div style={{color: 'white', fontSize: '20px', fontFamily: 'revert'}}>
+          <form>
+            <label htmlFor="amount"> amount: </label>
+            <input type="amount" id="amount:" name="amount:"/>
+          </form>
+        </div>
       </div>
+      
     ) : null
+    
   )
 }
 

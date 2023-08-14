@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import './Display.css'
+
 
 function Display({ activeMenu }) {
   const [fromCurrency, setFromCurrency] = useState("");
@@ -31,7 +33,7 @@ function Display({ activeMenu }) {
     return (
       <div className="display">
         <div>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">Amount: </label>
           <br />
           <br />
           <input
@@ -82,11 +84,20 @@ function Display({ activeMenu }) {
           </select>
         </div>
         <button onClick={handleCalculate}>Calculate</button>
+        <br></br>
+        <div style={{color: 'white', fontSize: '20px', fontFamily: 'revert'}}>
+          <form>
+            <label htmlFor="amount"> value:  </label>    
+            <input type="amount" id="value: "/>
+          </form>
+        </div>
       </div>
+      
     );
   }
 
   return (
+    
     activeMenu !== "Historical_and_current_rates" ? (
       <div className="display">
         <div>This is my history</div>
