@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 function Display({ activeMenu }) {
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
@@ -31,7 +32,7 @@ function Display({ activeMenu }) {
     return (
       <div className="display">
         <div>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">Amount: </label>
           <br />
           <br />
           <input
@@ -82,17 +83,19 @@ function Display({ activeMenu }) {
           </select>
         </div>
         <button onClick={handleCalculate}>Calculate</button>
+        <br></br>
       </div>
+      
     );
   }
 
   return (
-    <div className="display">
-      {activeMenu === "My history" && <div>This is my history</div>}
-      {activeMenu === "Historical_and_current_rates" && (
-        <div>This is historical and current rates</div>
-      )}
-    </div>
+    
+    activeMenu !== "Historical_and_current_rates" ? (
+      <div className="display">
+        <div>This is my history</div>
+      </div>
+    ) : null
   );
 }
 

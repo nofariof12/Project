@@ -4,6 +4,7 @@ import Login from "./log_in"
 import MainPage from './Main_page';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from './register';
+import BackButton from './BackButton';
 
 function App() {
   return (
@@ -13,13 +14,12 @@ function App() {
         <Route path='/log_in' element={<Login />} />
         <Route exact path='/main_page' element={<MainPage />} />
         <Route exact path='/register' element={<Register/>} />
+        <Route path='/back' component={BackButton} /> 
       </Routes>
     </BrowserRouter>
 
   );
+
 }
 
 export default App;
-
-
-
