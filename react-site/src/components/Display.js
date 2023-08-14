@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './Display.css'
 
 
 function Display({ activeMenu }) {
@@ -85,12 +84,6 @@ function Display({ activeMenu }) {
         </div>
         <button onClick={handleCalculate}>Calculate</button>
         <br></br>
-        <div style={{color: 'white', fontSize: '20px', fontFamily: 'revert'}}>
-          <form>
-            <label htmlFor="amount"> value:  </label>    
-            <input type="amount" id="value: "/>
-          </form>
-        </div>
       </div>
       
     );
