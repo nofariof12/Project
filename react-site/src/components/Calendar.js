@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import calendar styles
-//import CalendarWithCSVData from './renderCalendarCSV';
+
+const currencyCodeMap = {
+  Pounds: "GBP",
+  Dollars: "USD",
+  Euros: "EUR",
+  Shekels: "ILS",
+};
 
 function MyCalendar({ activeMenu }) {
-  const [currencyFrom, setCurrencyFrom] = useState("Euros");
-  const [currencyTo, setCurrencyTo] = useState("Euros");
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
   const [apiData, setApiData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  
+  const currencies = ["Pounds", "Dollars", "Euros", "Shekels"];
+
+ 
+  const handleFromCurrencyChange = (event) => {
+    setFromCurrency(event.target.value);
+  };
+
+  const handleToCurrencyChange = (event) => {
+    setToCurrency(event.target.value);
+  };
+   
   const handleDateChange = date => {
     setSelectedDate(date); // עדכון המשתנה כאשר המשתמש מבחין תאריך
   };
 const handleSubmit = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/data?date=${selectedDate.toISOString().split('T')[0]}&currency1=${currencyFrom}&currency2=${currencyTo}`);
+    const response = await fetch(`http://localhost:3000/Calendar?date=${selectedDate.toISOString().split('T')[0]}&currency1=${fromCurrency}&currency2=${toCurrency}`);
     const data = await response.json();
 
     // Check if data is not empty
@@ -37,35 +53,57 @@ const handleSubmit = async () => {
           onChange={handleDateChange}
           value={selectedDate}
         />
-          <div style={{color: 'white', fontSize: '20px'}}>
+        <br></br>
+        <div style={{color: 'white', fontSize: '20px'}}>
           <p>Selected date: {selectedDate.toLocaleDateString()} </p>
           </div>
-        <div style={{color: 'white', display: 'flex', padding: '15px', textAlign: 'center', fontSize: '20px'}}>
-          <form>
-            <label id='convert from'>convert from:  </label>
-              <select>
-              <option value="Pounds">Pounds</option>
-              <option value="Dollars">Dollars</option>
-              <option selected value="Euros">Euros</option>
-              <option value="Shekels">Shekels</option>
-              </select>
-              <br></br>
-              <br></br>
-              <label id='convert to'>convert to:  </label>
-              <select>
-              <option value="Pounds">Pounds</option>
-              <option value="Dollars">Dollars</option>
-              <option selected value="Euros">Euros</option>
-              <option value="Shekels">Shekels</option>
-              </select>
-          </form>
+          <br></br>
+       <div style={{color: 'white', fontSize: '20px'}}>
+          <label htmlFor="fromCurrency">Convert from: </label>
+          <select
+            id="fromCurrency"
+            value={fromCurrency}
+            onChange={handleFromCurrencyChange}
+          >
+            <option value="">Select Currency</option>
+            {currencies
+              .filter((currency) => currency !== toCurrency)
+              .map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+          </select>
+        <br></br>
+        <br></br>
+        <div style={{color: 'white', fontsize: '20px'}}>
+          <label htmlFor="toCurrency">Convert to: </label>
+          <select
+            id="toCurrency"
+            value={toCurrency}
+            onChange={handleToCurrencyChange}
+          >
+            <option value="">Select Currency</option>
+            {currencies
+              .filter((currency) => currency !== fromCurrency)
+              .map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+          </select>
         </div>
+        </div>
+        <br></br>
+        <form onSubmit={MyCalendar}>
         <input type="submit" value="Submit" onClick={handleSubmit} />
         {apiData && (
           <div style={{marginTop: '20px', color: 'white'}}>
             <strong>Value: </strong> {apiData}
           </div>
         )}
+        </form>
+
        </div> 
     ) : null
   )
