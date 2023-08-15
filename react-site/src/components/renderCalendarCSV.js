@@ -1,54 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
-import Papa from 'papaparse';
+app.get('/data', (req, res) => {
+  const { date, currency1, currency2 } = req.query;
+  
+  if (!currency1 || !currency2 || !date) {
+      return res.status(400).send("Please provide date, currency1, and currency2 as query parameters.");
+  }
 
-function CalendarWithCSVData() {
-  const [csvData, setCsvData] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const csvFile = `${currency1}-${currency2}.csv`;
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('foreign exchange DATA\ILS\ILS_GBP_pred.csv');
-      const text = await response.text();
-      const parsedData = Papa.parse(text, { header: true }).data;
-      setCsvData(parsedData);
-    }
+  if (!fs.existsSync(csvFile)) {
+      return res.status(404).send("CSV file for the given currency pair not found.");
+  }
 
-    fetchData();
-  }, []);
+  const [year, month, day] = date.split('-');
+  const searchDate = `${day}.${month}.${year}`;
 
-  const formattedCsvData = csvData.map(item => ({
-    ...item,
-    ds: new Date(item.ds), // Convert date strings to Date objects
-  }));
-
-  const handleDateChange = date => {
-    setSelectedDate(date);
-  };
-
-  return (
-    <div>
-      <h2>Calendar with CSV Data</h2>
-      <Calendar
-        value={selectedDate}
-        onChange={handleDateChange}
-        tileContent={({ date }) => {
-          const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-          const matchingEvents = formattedCsvData.filter(item => {
-          const eventDate = item.date.toISOString().split('T')[0]; // Convert to ISO date string
-            return eventDate === formattedDate;
-          
-          });
-        
-          if (matchingEvents.length > 0) {
-            return <div>{matchingEvents.length} events</div>;
+  let value;
+  fs.createReadStream(csvFile)
+      .pipe(csv())
+      .on('data', (row) => {
+          if (row.ds === searchDate) {
+              value = row.y;
           }
+      })
+      .on('end', () => {
+          if (value) {
+              res.json({ date: date, value: value });
+          } else {
+              res.status(404).send("Date not found in the CSV file.");
+          }
+      })
+      .on('error', (error) => {
+          res.status(500).send("Error reading the CSV file.");
+      });
+});
 
-          return null;
-        }}
-      />
-    </div>
-  );
-}
-
-export default CalendarWithCSVData;
