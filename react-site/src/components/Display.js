@@ -130,18 +130,20 @@ function Display({ activeMenu }) {
         <br>
         </br>
         <div >
-        {conversionResult && <div>{conversionResult}</div>}
+          {conversionResult && <div>{conversionResult}</div>}
         </div>
-       
+
       </div>
     );
   }
 
   return (
-    <div className="display">
-      {activeMenu === "My history" && <div>This is my history</div>}
-    </div>
-  );
+    activeMenu !== "Historical_and_current_rates" ? (
+      <div className="display">
+        <div>This is my history</div>
+      </div>
+    ) : null
+  )
 }
 
 export default Display;
