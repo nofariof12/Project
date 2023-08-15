@@ -17,10 +17,7 @@ function MyCalendar({ activeMenu }) {
     activeMenu === "Historical_and_current_rates" ? (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100vh' }}>
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
+  
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
@@ -30,7 +27,7 @@ function MyCalendar({ activeMenu }) {
           <div style={{color: 'white', fontSize: '20px'}}>
           <p>Selected date: {selectedDate.toLocaleDateString()} </p>
           </div>
-        <div style={{color: 'red', display: 'flex', padding: '15px', textAlign: 'center', fontSize: '20px'}}>
+        <div style={{color: 'white', display: 'flex', padding: '15px', textAlign: 'center', fontSize: '20px'}}>
           <form>
             <label id='convert from'>convert from:  </label>
               <select>
@@ -54,7 +51,6 @@ function MyCalendar({ activeMenu }) {
           <br></br> <br></br>
         </div>
           <input type="submit" value="Submit" />
-          {/* <CalendarWithCSVData/> */}
        </div> 
     ) : null
   )
