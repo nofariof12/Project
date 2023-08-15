@@ -24,7 +24,7 @@ function Menu({ setActiveMenu }) {
         Currency conversion
         
       </div>
-  
+    
 
     </div>
   );

@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import calendar styles
 //import CalendarWithCSVData from './renderCalendarCSV';
+
+function MyCalendar({ activeMenu }) {
+  const [currencyFrom, setCurrencyFrom] = useState("Euros");
+  const [currencyTo, setCurrencyTo] = useState("Euros");
+  const [apiData, setApiData] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  
+  const handleDateChange = date => {
+    setSelectedDate(date); // עדכון המשתנה כאשר המשתמש מבחין תאריך
+  };
 const handleSubmit = async () => {
   try {
     const response = await fetch(`http://localhost:3000/data?date=${selectedDate.toISOString().split('T')[0]}&currency1=${currencyFrom}&currency2=${currencyTo}`);
@@ -19,27 +29,14 @@ const handleSubmit = async () => {
     setApiData(null);
   }
 };
-
-function MyCalendar({ activeMenu }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  
-  const handleDateChange = date => {
-    setSelectedDate(date); // עדכון המשתנה כאשר המשתמש מבחין תאריך
-  };
-
   return (
-    
     activeMenu === "Historical_and_current_rates" ? (
-      
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', height: '100vh' }}>
         <br></br>
-  
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
         />
-        <br></br>
-        <br></br>
           <div style={{color: 'white', fontSize: '20px'}}>
           <p>Selected date: {selectedDate.toLocaleDateString()} </p>
           </div>
@@ -61,10 +58,7 @@ function MyCalendar({ activeMenu }) {
               <option selected value="Euros">Euros</option>
               <option value="Shekels">Shekels</option>
               </select>
-              <br></br>
-              <br></br>
           </form>
-          <br></br> <br></br>
         </div>
         <input type="submit" value="Submit" onClick={handleSubmit} />
         {apiData && (
@@ -73,14 +67,7 @@ function MyCalendar({ activeMenu }) {
           </div>
         )}
        </div> 
-       
     ) : null
-    
-    
   )
 }
-
-
-
-
 export default MyCalendar;
