@@ -14,8 +14,7 @@ function MyCalendar({ activeMenu }) {
   const [toCurrency, setToCurrency] = useState("");
   const [apiData, setApiData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const currencies = ["Pounds", "Dollars", "Euros", "Shekels"];
-
+  const currencies = ["GBP", "USD", "EUR", "ILS"];
  
   const handleFromCurrencyChange = (event) => {
     setFromCurrency(event.target.value);
@@ -30,7 +29,7 @@ function MyCalendar({ activeMenu }) {
   };
 const handleSubmit = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/Calendar?date=${selectedDate.toISOString().split('T')[0]}&currency1=${fromCurrency}&currency2=${toCurrency}`);
+    const response = await fetch(`http://localhost:4000/data?date=${selectedDate.toISOString().split('T')[0]}&currency1=${fromCurrency}&currency2=${toCurrency}`);
     const data = await response.json();
 
     // Check if data is not empty

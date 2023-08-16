@@ -3,13 +3,13 @@ const fs = require('fs');
 const csv = require('csv-parser');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
-app.get('/data/', (req, res) => {
+app.get('/data', (req, res) => {
     const { date, currency1, currency2 } = req.query;
     
     if (!currency1 || !currency2 || !date) {
-        return res.status(400).send("Please provide date, currency1, and currency2 as query parameters.");
+        return res.status(400).send(req.query);
     }
 
     const csvFile = `${currency1}-${currency2}.csv`;
