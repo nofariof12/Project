@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./register.css";
 
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3001/login/register')
+  //     .then((res) => res.json())
+  //       .then((data) => setMessage(data.message));
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform registration logic here
-    console.log("Registration submitted");
+    const userData = {email, password};
+    fetch('http://localhost:3001/login/register',{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(userData)
+    })
+    .then(() => {
+      console.log("Registration submitted");
+    })
   };
 
   return (
@@ -47,7 +62,10 @@ function Register() {
         </br>
         <button type="submit">Register</button>
       </form>
-     
+     <br></br>
+     <br></br>
+     <br></br>
+     <p>{message}</p>
     </div>
   );
 }

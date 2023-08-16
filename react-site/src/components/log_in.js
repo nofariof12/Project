@@ -5,7 +5,7 @@ function Login() {
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form>
+      <form method="post" action="http://localhost:3001/login/">
         <label htmlFor="email">Email:</label>
         <br />
         <br />
@@ -26,7 +26,7 @@ function Login() {
       </br>
       <div className="register-section">
         If you still don't have an account{" "}
-        <a href="/register">Click here to register</a>.
+        <a href="login/register">Click here to register</a>.
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ function Home() {
         <br />
       </div>
       <div style={{ textAlign: "center" }}>
-        <Link to="log_in">
+        <Link to="login">
           <button style={{
             margin: "0 auto",
             backgroundColor: "white",
