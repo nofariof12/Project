@@ -9,46 +9,51 @@ const con = mysql.createConnection({
     database: 'registered'
 });
 
-//
 //regidter
 router.post('/register', async function (req, res){      
     let email = req.body.email;
     let psw = req.body.password;
-    let sql=`SELECT email FROM users WHERE email='${email}'`;
+    if(email.trim()=='' || psw.trim()==''){res.json({message:'One or more of the fields are missing'});}
+    else if(psw.length<4){res.json({message: 'The password must be at least 4 characters long'});}
+    else{
+        let sql=`SELECT email FROM users WHERE email='${email}'`;
     await con.query(sql,async(err, results)=>
     {
-        console.log(err?err.message:results);
         if(results.length==0){
             sql= `INSERT INTO users (email, password) VALUES ('${email}','${psw}')`;
             await con.query(sql, (err)=>{
                 console.log(err?err.message:'insert user')
             });
-            res.send(`successfully registered. welcome ${email}`);
+            global.haveUser = true;
+            res.json({main:true});
         }
         else if(results.length>0){
-            res.send('This email is already registered');
+            res.json({message:'This email is already registered'});
         }
-        else{res.send('error');}  
-    });    
+        else{res.json({message:'uncaught error'});}  
+    });}    
 })
 
 //login
 router.post('/',  async function (req, res){
     let email = req.body.email;
-    let psw = req.body.psw;
-
+    let psw = req.body.password;
+    if(email.trim()=='' || psw.trim()==''){res.json({message:'One or more of the fields are missing'});}
+    else{
     let sql=`SELECT password FROM users WHERE email='${email}'`;
-    await con.query(sql,async(err, results)=>{
-        if(!results[0]){            
-            res.send("email doesn't exist");
-        }
-        else if(results[0].password==psw){
-            res.redirect('/');
-        }
-        else{
-            res.send('wrong password');
-        }
-    })
+        await con.query(sql,async(err, results)=>{
+            if(!results[0]){            
+                res.json({message:"email doesn't exist"});
+            }
+            else if(results[0].password==psw){
+                global.haveUser = true;
+                res.json({main:true});
+            }
+            else{
+                res.json({message:'wrong password'});
+            }
+        })
+    }
 })
 
 module.exports = router;

@@ -1,6 +1,6 @@
-// import React, { useState } from 'react';
-// import Calendar from 'react-calendar';
-// import 'react-calendar/dist/Calendar.css'; // Import calendar styles
+import React, { useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'; // Import calendar styles
 
 const currencyCodeMap = {
   Pounds: "GBP",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "./BackButton";
 import "./register.css";
 
@@ -7,25 +8,26 @@ function Register() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/login/register')
-  //     .then((res) => res.json())
-  //       .then((data) => setMessage(data.message));
-  // }, []);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform registration logic here
     const userData = {email, password};
-    fetch('http://localhost:3001/login/register',{
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify(userData)
-    })
-    .then(() => {
-      console.log("Registration submitted");
-    })
+    try{
+      fetch('http://localhost:3001/login/register',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(userData)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setMessage(data.message);
+        if(data.main){ navigate("/main");}
+      });
+    }
+    catch(err) {console.log(err);}
   };
+
 
   return (
     <div className="register-container">
@@ -67,7 +69,7 @@ function Register() {
      <br></br>
      <br></br>
      <br></br>
-     <p>{message}</p>
+     <p id="msg">{message}</p>
     </div>
   );
 }

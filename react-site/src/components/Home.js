@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Logo from '../images/background.jpg';
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 
 function Home() {
+  useEffect(() => {
+    try{
+      fetch('http://localhost:3001/')
+      .then((res) => res.json());
+    }
+    catch(err) {console.log(err);}
+  });
   return (
     <>
 
@@ -28,7 +35,7 @@ function Home() {
         </Link>
         <br></br>
         <br></br>
-        <Link to="Main_page">
+        <Link to="main">
           <button style={{
             margin: "0 auto",
             backgroundColor: "blue",
