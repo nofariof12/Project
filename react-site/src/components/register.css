@@ -28,4 +28,6 @@
   .register-section a:hover {
     color: silver;
   }
+
+  #msg{color:red; font-size: 1.8rem;}
   
