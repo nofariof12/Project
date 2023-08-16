@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import BackButton from "./BackButton";
 import "./register.css";
 
 function Register() {
@@ -61,6 +62,7 @@ function Register() {
         <br>
         </br>
         <button type="submit">Register</button>
+        <BackButton/>
       </form>
      <br></br>
      <br></br>

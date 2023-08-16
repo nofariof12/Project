@@ -1,5 +1,6 @@
 import React from "react";
 import "./log_in.css";
+import BackButton from "./BackButton";
 
 function Login() {
   return (
@@ -26,7 +27,8 @@ function Login() {
       </br>
       <div className="register-section">
         If you still don't have an account{" "}
-        <a href="login/register">Click here to register</a>.
+        <a href="login/register">Click here to register</a>
+        <BackButton/>
       </div>
     </div>
   );

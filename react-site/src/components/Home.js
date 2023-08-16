@@ -2,7 +2,6 @@ import React from "react";
 import Logo from '../images/background.jpg';
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import MainPage from "./Main_page";
 
 function Home() {
   return (
@@ -16,8 +15,8 @@ function Home() {
         <Link to="login">
           <button style={{
             margin: "0 auto",
-            backgroundColor: "white",
-            color: "black",
+            backgroundColor: "blue",
+            color: "white",
             fontFamily: "Arial",
             fontSize: "16px",
             padding: "10px 20px",
@@ -26,6 +25,22 @@ function Home() {
             cursor: "pointer",
           }}
           >enter the website</button>
+        </Link>
+        <br></br>
+        <br></br>
+        <Link to="Main_page">
+          <button style={{
+            margin: "0 auto",
+            backgroundColor: "blue",
+            color: "white",
+            fontFamily: "Arial",
+            fontSize: "15px",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+          >enter to Main page</button>
         </Link>
       </div>
       <br></br>
