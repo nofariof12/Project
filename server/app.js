@@ -1,46 +1,57 @@
 const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
-
+const cors = require('cors');
 const app = express();
-const PORT = 4000;
 
-app.get('/data', (req, res) => {
+app.use(cors());
+app.use(express.json());
+const PORT=3001;
+
+app.get('/data/', (req, res) => {
     const { date, currency1, currency2 } = req.query;
-    
     if (!currency1 || !currency2 || !date) {
-        return res.status(400).send("Please provide date, currency1, and currency2 as query parameters.");
+      return res
+        .status(400)
+        .send(
+          'Please provide date, currency1, and currency2 as query parameters.'
+        );
     }
-
-    const csvFile = `${currency1}-${currency2}.csv`;
-
-    if (!fs.existsSync(csvFile)) {
+    
+    const csvFile = `data/${currency1}_${currency2}.csv`;
+    console.log(csvFile)
+        if (!fs.existsSync(csvFile)) {
         return res.status(404).send("CSV file for the given currency pair not found.");
     }
 
-    const [year, month, day] = date.split('-');
+    const [year, month, day] = date.split('/');
+    console.log(date);
     const searchDate = `${day}.${month}.${year}`;
-
+    console.log(searchDate);
     let value;
+  
     fs.createReadStream(csvFile)
-        .pipe(csv())
-        .on('data', (row) => {
-            if (row.ds === searchDate) {
-                value = row.y;
-            }
-        })
-        .on('end', () => {
-            if (value) {
-                res.json({ date: date, value: value });
-            } else {
-                res.status(404).send("Date not found in the CSV file.");
-            }
-        })
-        .on('error', (error) => {
-            res.status(500).send("Error reading the CSV file.");
-        });
+    .pipe(csv(['ds', 'yhat'])) //set the column names manually
+    .on('data', (row) => {
+      console.log(row.ds);
+      if (row.ds === searchDate) {
+        //once you find the correct date, there is no need to search more (unless there are 2 rows with the same date, which doesn't make sense if I understand correctly)
+        value = row.yhat;
+        console.log(value);
+      }
+    })
+    .on('end', () => {
+      if (value) {
+        res.json({ date: date, value: value });
+      } else {
+        res.status(404).send('Date not found in the CSV file.');
+      }
+    })
+    .on('error', (error) => {
+      res.status(500).send('Error reading the CSV file.');
+    });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
