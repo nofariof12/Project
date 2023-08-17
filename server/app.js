@@ -9,7 +9,7 @@ app.get('/data', (req, res) => {
     const { date, currency1, currency2 } = req.query;
     
     if (!currency1 || !currency2 || !date) {
-        return res.status(400).send(req.query);
+        return res.status(400).send("Please provide date, currency1, and currency2 as query parameters.");
     }
 
     const csvFile = `${currency1}-${currency2}.csv`;
