@@ -76,7 +76,7 @@ function Display({ activeMenu }) {
   if (activeMenu === "Currency_conversion") {
     return (
       <div className="display">
-        <div>
+        <div style={{color: 'white', fontSize: '20px'}}>
           <label htmlFor="amount">Amount:</label>
           <br />
           <br />
@@ -87,7 +87,7 @@ function Display({ activeMenu }) {
             onChange={handleAmountChange}
           />
         </div>
-        <div>
+        <div style={{color: 'white', fontSize: '20px'}}>
           <br />
           <label htmlFor="fromCurrency">Convert from:</label>
           <br />
@@ -107,7 +107,7 @@ function Display({ activeMenu }) {
               ))}
           </select>
         </div>
-        <div>
+        <div style={{color: 'white', fontSize: '20px'}}>
           <label htmlFor="toCurrency">Convert to:</label>
           <br />
           <br />
@@ -129,7 +129,7 @@ function Display({ activeMenu }) {
         <button onClick={handleCalculate}>Calculate</button>
         <br>
         </br>
-        <div >
+        <div style={{color: 'white', fontSize: '20px'}}>
           {conversionResult && <div>{conversionResult}</div>}
         </div>
 

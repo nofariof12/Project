@@ -53,10 +53,11 @@ const handleSubmit = async () => {
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
+          
         />
         <br></br>
         <div style={{color: 'white', fontSize: '20px'}}>
-          <p>Selected date: {selectedDate.toLocaleDateString()} </p>
+          <p>Selected date: {selectedDate.toLocaleDateString().slice(0, 10)} </p>
           </div>
           <br></br>
        <div style={{color: 'white', fontSize: '20px'}}>
@@ -99,7 +100,7 @@ const handleSubmit = async () => {
         <form onSubmit={MyCalendar}>
         <button type="button" onClick={handleSubmit}>submit</button>
         {apiData && (
-          <div style={{marginTop: '20px', color: 'white'}}>
+          <div style={{marginTop: '20px', color: 'white', fontSize: '20px'}}>
             <strong>Value: </strong> {apiData}
           </div>
         )}
