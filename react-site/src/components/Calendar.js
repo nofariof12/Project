@@ -23,7 +23,7 @@ function MyCalendar({ activeMenu }) {
   const handleToCurrencyChange = (event) => {
     setToCurrency(event.target.value);
   };
-   
+
   const handleDateChange = date => {
     setSelectedDate(date); // עדכון המשתנה כאשר המשתמש מבחין תאריך
   };
@@ -95,7 +95,7 @@ const handleSubmit = async () => {
         </div>
         <br></br>
         <form onSubmit={MyCalendar}>
-        <input type="submit" value="Submit" onClick={handleSubmit} />
+        <button type="button" onClick={handleSubmit}>submit</button>
         {apiData && (
           <div style={{marginTop: '20px', color: 'white'}}>
             <strong>Value: </strong> {apiData}

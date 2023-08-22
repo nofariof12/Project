@@ -5,7 +5,7 @@ import Render from "./Render";
 function MainPage() {
   return (
     <div>
-      <Render />,
+      <Render />
       <BackButton/>
     </div>
   );

@@ -2,13 +2,15 @@ const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
 const cors = require('cors');
+const { text } = require('express');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 const PORT=3001;
 
-app.get('/data/', (req, res) => {
+console.log("test")
+app.get('/data', (req, res) => {
     const { date, currency1, currency2 } = req.query;
     if (!currency1 || !currency2 || !date) {
       return res
@@ -19,13 +21,12 @@ app.get('/data/', (req, res) => {
     }
     
     const csvFile = `data/${currency1}_${currency2}.csv`;
-    console.log(csvFile)
+    console.log(text)
         if (!fs.existsSync(csvFile)) {
         return res.status(404).send("CSV file for the given currency pair not found.");
     }
 
     const [year, month, day] = date.split('/');
-    console.log(date);
     const searchDate = `${day}.${month}.${year}`;
     console.log(searchDate);
     let value;
@@ -33,7 +34,6 @@ app.get('/data/', (req, res) => {
     fs.createReadStream(csvFile)
     .pipe(csv(['ds', 'yhat'])) //set the column names manually
     .on('data', (row) => {
-      console.log(row.ds);
       if (row.ds === searchDate) {
         //once you find the correct date, there is no need to search more (unless there are 2 rows with the same date, which doesn't make sense if I understand correctly)
         value = row.yhat;

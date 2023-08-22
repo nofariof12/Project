@@ -9,9 +9,6 @@ function Menu({ setActiveMenu }) {
       setActiveMenu("Historical_and_current_rates");
   }
   
-  const setActiveTest = () => {
-    setActiveMenu("test");
-}
   return (
     <div className="menu">
       <div className="menu-item" onClick={setActiveMenuCalendar} >
