@@ -25,6 +25,8 @@ function MyCalendar({ activeMenu }) {
   };
 
   const handleDateChange = date => {
+    console.log({date})
+    date.setHours(13)
     setSelectedDate(date); // עדכון המשתנה כאשר המשתמש מבחין תאריך
   };
 const handleSubmit = async () => {
