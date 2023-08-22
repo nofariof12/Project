@@ -2,7 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
 const cors = require('cors');
-const { text } = require('express');
 const app = express();
 
 app.use(cors());
@@ -12,6 +11,7 @@ const PORT=3001;
 console.log("test")
 app.get('/data', (req, res) => {
     const { date, currency1, currency2 } = req.query;
+    console.log(date, currency1, currency2)
     if (!currency1 || !currency2 || !date) {
       return res
         .status(400)
@@ -21,14 +21,14 @@ app.get('/data', (req, res) => {
     }
     
     const csvFile = `data/${currency1}_${currency2}.csv`;
-    console.log(text)
+    console.log("text")
         if (!fs.existsSync(csvFile)) {
         return res.status(404).send("CSV file for the given currency pair not found.");
     }
 
-    const [year, month, day] = date.split('/');
-    const searchDate = `${day}.${month}.${year}`;
-    console.log(searchDate);
+    const [year, month, day] = date.split('-');
+    const searchDate = `${day}/${month}/${year}`;
+    console.log({searchDate});
     let value;
   
     fs.createReadStream(csvFile)
