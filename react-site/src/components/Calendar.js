@@ -38,7 +38,6 @@ function MyCalendar({ activeMenu }) {
         );
       const data = await response.json();
       if(data.message){ setMessage(data.message);}
-      console.log("message: " + message);
       if (data.value) {
         setApiData(data.value);
         setMessage(null);
@@ -103,16 +102,15 @@ function MyCalendar({ activeMenu }) {
         </div>
         <br></br>
         <form onSubmit={MyCalendar}>
-        <button type="button" onClick={handleSubmit}>submit</button>
-        <br></br>
+        <div style={{textAlign: 'center'}}><button type="button" onClick={handleSubmit}>submit</button></div>
         <br></br>
         {apiData && (
-          <div style={{color: 'white', fontSize: '20px', alignItems: 'center'}}>
+          <div style={{color: 'white', fontSize: '20px'}}>
             1 {fromCurrency} = {apiData} {toCurrency}
           </div>
         )}
         {message && (
-          <div style={{color: 'red', fontSize: '20px', alignItems: 'center'}}>
+          <div style={{color: 'red', fontSize: '20px'}}>
            {message}
           </div>
         )}

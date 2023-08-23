@@ -13,6 +13,7 @@ function Display({ activeMenu }) {
   const [amount, setAmount] = useState("");
   const [exchangeRates, setExchangeRates] = useState({});
   const [conversionResult, setConversionResult] = useState(null);
+  const [message, setMessage] = useState(null);
   const currencies = ["Pounds", "Dollars", "Euros", "Shekels"];
 
   useEffect(() => {
@@ -55,16 +56,17 @@ function Display({ activeMenu }) {
   };
 
   const handleCalculate = () => {
+    setConversionResult(null);
     if (!amount || !fromCurrency || !toCurrency) {
-      console.log("Please enter all required information.");
+      setMessage("Please enter all required information.");
       return;
     }
 
     if (!exchangeRates[currencyCodeMap[toCurrency]]) {
-      console.log("Exchange rate not available for the selected currency.");
+      setMessage("Exchange rate not available for the selected currency.");
       return;
     }
-
+    setMessage(null);
     const convertedAmount = (
       amount * exchangeRates[currencyCodeMap[toCurrency]]
     ).toFixed(2);
@@ -75,7 +77,7 @@ function Display({ activeMenu }) {
 
   if (activeMenu === "Currency_conversion") {
     return (
-      <div className="display">
+      <div className="display" style={{color:'white'}}>
         <div>
           <label htmlFor="amount">Amount:</label>
           <br />
@@ -129,9 +131,10 @@ function Display({ activeMenu }) {
         <button onClick={handleCalculate}>Calculate</button>
         <br>
         </br>
-        <div >
-          {conversionResult && <div>{conversionResult}</div>}
+        <div style={{fontSize:'20px'}}>
+          <strong>{conversionResult && <div>{conversionResult}</div>}</strong>
         </div>
+        {message && <div style={{fontSize:'20px',color:'red'}}>One or more of the fields are missing</div>}
 
       </div>
     );
