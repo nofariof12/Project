@@ -1,0 +1,31 @@
+/* tableFrameStyles.css */
+
+/* Style the container */
+.table-container {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px ;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    color: white;
+  }
+  
+  /* Style the table */
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Style table header cells */
+  .table-container th {
+    background-color: black;
+    border: 1px solid #ddd;
+    padding: 40px;
+    text-align: left;
+  }
+  
+  /* Style table body cells */
+  .table-container td {
+    border: 1px solid #ddd;
+    padding: 40px;
+  }
+  
