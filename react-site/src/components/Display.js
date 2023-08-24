@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './MyHistory.css'; // Import the CSS file you created
 
 const currencyCodeMap = {
   Pounds: "GBP",
@@ -6,6 +7,13 @@ const currencyCodeMap = {
   Euros: "EUR",
   Shekels: "ILS",
 };
+
+const data = [
+  { id: 1, name: 'John', age: 25 },
+  { id: 2, name: 'Jane', age: 30 },
+  { id: 3, name: 'Alice', age: 28 },
+];
+
 
 function Display({ activeMenu }) {
   const [fromCurrency, setFromCurrency] = useState("");
@@ -140,9 +148,37 @@ function Display({ activeMenu }) {
   return (
     activeMenu !== "Historical_and_current_rates" ? (
       <div className="display">
-        <div>This is my history</div>
+      <div style={{height: '80vh'}}>
+    <h2>My History</h2>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row) => (
+            <tr key={row.id}>
+              <td>{row.id}</td>
+              <td>{row.name}</td>
+              <td>{row.age}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    </div>
       </div>
     ) : null
+    
   )
 }
 
