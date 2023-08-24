@@ -1,7 +1,7 @@
 import pandas as pd
 from prophet import Prophet
 
-df = pd.read_csv(r'Finall Project\foreign exchange DATA\EUR\EUR_GBP.csv')
+df = pd.read_csv(r'server\data\EUR_ILS.csv')
 pd.set_option('display.max_rows', None)
 
 m = Prophet()
@@ -11,6 +11,5 @@ future.tail()
 forecast = m.predict(future)
 forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
 x=forecast[forecast['ds'] >= pd.to_datetime('2023-01-01')]
-pd.DataFrame(x, columns=['ds','yhat']).to_csv('XXX.csv')
+pd.DataFrame(x, columns=['ds','yhat']).to_csv('EUR_ILS.csv')
 
-print(x)
