@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import calendar styles
 
@@ -15,6 +15,7 @@ function MyCalendar({ activeMenu }) {
   const [apiData, setApiData] = useState(null);
   const [message, setMessage] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [history, setHistory] = useState(null);
   const currencies = ["GBP", "USD", "EUR", "ILS"];
  
   const handleFromCurrencyChange = (event) => {
@@ -31,6 +32,24 @@ function MyCalendar({ activeMenu }) {
     setSelectedDate(date); 
   };
 
+  //handel my history
+  const handleHistory = (rst) => {
+    const historyData = {
+      category:'Historical_and_current_rates',
+      search:{fromCurrency, toCurrency, selectedDate}, 
+      results:rst
+    };
+    try{
+      fetch('http://localhost:3001/history/update',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(historyData)
+      })
+      .then((res) => res.json())      
+    }
+    catch(err) {console.log(err);}
+  }
+
   const handleSubmit = async () => {
     try {
       const response = await fetch(
@@ -39,8 +58,9 @@ function MyCalendar({ activeMenu }) {
       const data = await response.json();
       if(data.message){ setMessage(data.message);}
       if (data.value) {
-        setApiData(data.value);
+        setApiData(data.value);        
         setMessage(null);
+        handleHistory(`1 ${fromCurrency} = ${data.value} ${toCurrency}`);
       } else {
         setApiData(null);
       }

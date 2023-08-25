@@ -11,6 +11,7 @@ function Home() {
     }
     catch(err) {console.log(err);}
   });
+  
   return (
     <>
 
@@ -35,20 +36,6 @@ function Home() {
         </Link>
         <br></br>
         <br></br>
-        <Link to="main">
-          <button style={{
-            margin: "0 auto",
-            backgroundColor: "blue",
-            color: "white",
-            fontFamily: "Arial",
-            fontSize: "15px",
-            padding: "10px 20px",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
-          }}
-          >enter to Main page</button>
-        </Link>
       </div>
       <br></br>
       <Footer />

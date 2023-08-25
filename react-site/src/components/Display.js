@@ -23,8 +23,7 @@ function Display({ activeMenu }) {
 
   const fetchExchangeRates = async () => {
     try {
-      if (!fromCurrency) {
-        console.log("Please select a 'Convert from' currency.");
+      if (!fromCurrency) {        
         return;
       }
 
@@ -55,6 +54,24 @@ function Display({ activeMenu }) {
     }
   };
 
+  //handel my history
+  const handleHistory = (rst) => {
+    const historyData = {
+      category:'Currency_conversion',
+      search:{fromCurrency, toCurrency, amount}, 
+      results:rst
+    };
+    try{
+      fetch('http://localhost:3001/history/update',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(historyData)
+      })
+      .then((res) => res.json())      
+    }
+    catch(err) {console.log(err);}
+  }
+
   const handleCalculate = () => {
     setConversionResult(null);
     if (!amount || !fromCurrency || !toCurrency) {
@@ -73,6 +90,7 @@ function Display({ activeMenu }) {
 
     // Update the state with the calculated result
     setConversionResult(`${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`);
+    handleHistory(`${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`);
   };
 
   if (activeMenu === "Currency_conversion") {
@@ -139,14 +157,6 @@ function Display({ activeMenu }) {
       </div>
     );
   }
-
-  return (
-    activeMenu !== "Historical_and_current_rates" ? (
-      <div className="display">
-        <div>This is my history</div>
-      </div>
-    ) : null
-  )
 }
 
 export default Display;

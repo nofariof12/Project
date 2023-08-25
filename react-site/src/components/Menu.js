@@ -9,23 +9,20 @@ function Menu({ setActiveMenu }) {
       setActiveMenu("Historical_and_current_rates");
   }
   
-  const setActiveTest = () => {
-    setActiveMenu("test");
+  const setActiveMyHistory = () => {
+    setActiveMenu("My_history");
 }
   return (
     <div className="menu">
       <div className="menu-item" onClick={setActiveMenuCalendar} >
         Historical and future rates
       </div>
-      <div className="menu-item" onClick={() => setActiveMenu("My_history")}>
+      <div className="menu-item"  onClick={setActiveMyHistory}>
         My history
       </div>
       <div className="menu-item" onClick={handleCurrencyConversionClick}>
-        Currency conversion
-        
+        Currency conversion        
       </div>
-    
-
     </div>
   );
 }
