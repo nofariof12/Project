@@ -20,7 +20,7 @@ function MainPage() {
 
   return (
     <div>
-      <Render />,
+      <Render />
       <BackButton/>
     </div>
   );

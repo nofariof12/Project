@@ -16,8 +16,7 @@ function App() {
         <Route exact path='login/register' element={<Register/>} />
         <Route path='/back' component={BackButton} />
       </Routes>
-    </BrowserRouter>
-
+    </BrowserRouter>    
   );
 
 }

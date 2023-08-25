@@ -9,6 +9,8 @@ const con = mysql.createConnection({
     database: 'registered'
 });
 
+const defultHistory =JSON.stringify([{},{},{}]);
+
 //regidter
 router.post('/register', async function (req, res){      
     let email = req.body.email;
@@ -20,11 +22,11 @@ router.post('/register', async function (req, res){
     await con.query(sql,async(err, results)=>
     {
         if(results.length==0){
-            sql= `INSERT INTO users (email, password) VALUES ('${email}','${psw}')`;
+            sql= `INSERT INTO users (email, password, history) VALUES ('${email}','${psw}','${defultHistory}')`;
             await con.query(sql, (err)=>{
                 console.log(err?err.message:'insert user')
             });
-            global.haveUser = true;
+            global.user = email;
             res.json({main:true});
         }
         else if(results.length>0){
@@ -46,7 +48,8 @@ router.post('/',  async function (req, res){
                 res.json({message:"email doesn't exist"});
             }
             else if(results[0].password==psw){
-                global.haveUser = true;
+                global.user = email;
+                console.log(global.user);
                 res.json({main:true});
             }
             else{

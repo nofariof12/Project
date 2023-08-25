@@ -13,6 +13,7 @@ function Display({ activeMenu }) {
   const [amount, setAmount] = useState("");
   const [exchangeRates, setExchangeRates] = useState({});
   const [conversionResult, setConversionResult] = useState(null);
+  const [message, setMessage] = useState(null);
   const currencies = ["Pounds", "Dollars", "Euros", "Shekels"];
 
   useEffect(() => {
@@ -22,8 +23,7 @@ function Display({ activeMenu }) {
 
   const fetchExchangeRates = async () => {
     try {
-      if (!fromCurrency) {
-        console.log("Please select a 'Convert from' currency.");
+      if (!fromCurrency) {        
         return;
       }
 
@@ -54,28 +54,48 @@ function Display({ activeMenu }) {
     }
   };
 
+  //handel my history
+  const handleHistory = (rst) => {
+    const historyData = {
+      category:'Currency_conversion',
+      search:{fromCurrency, toCurrency, amount}, 
+      results:rst
+    };
+    try{
+      fetch('http://localhost:3001/history/update',{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(historyData)
+      })
+      .then((res) => res.json())      
+    }
+    catch(err) {console.log(err);}
+  }
+
   const handleCalculate = () => {
+    setConversionResult(null);
     if (!amount || !fromCurrency || !toCurrency) {
-      console.log("Please enter all required information.");
+      setMessage("Please enter all required information.");
       return;
     }
 
     if (!exchangeRates[currencyCodeMap[toCurrency]]) {
-      console.log("Exchange rate not available for the selected currency.");
+      setMessage("Exchange rate not available for the selected currency.");
       return;
     }
-
+    setMessage(null);
     const convertedAmount = (
       amount * exchangeRates[currencyCodeMap[toCurrency]]
     ).toFixed(2);
 
     // Update the state with the calculated result
     setConversionResult(`${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`);
+    handleHistory(`${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`);
   };
 
   if (activeMenu === "Currency_conversion") {
     return (
-      <div className="display">
+      <div className="display" style={{color:'white'}}>
         <div>
           <label htmlFor="amount">Amount:</label>
           <br />
@@ -129,21 +149,14 @@ function Display({ activeMenu }) {
         <button onClick={handleCalculate}>Calculate</button>
         <br>
         </br>
-        <div >
-          {conversionResult && <div>{conversionResult}</div>}
+        <div style={{fontSize:'20px'}}>
+          <strong>{conversionResult && <div>{conversionResult}</div>}</strong>
         </div>
+        {message && <div style={{fontSize:'20px',color:'red'}}>One or more of the fields are missing</div>}
 
       </div>
     );
   }
-
-  return (
-    activeMenu !== "Historical_and_current_rates" ? (
-      <div className="display">
-        <div>This is my history</div>
-      </div>
-    ) : null
-  )
 }
 
 export default Display;
