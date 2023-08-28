@@ -22,7 +22,7 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         setMessage(data.message);
-        if(data.main){ navigate("/main");}
+        if(data.main){ navigate("/login");}
       });
     }
     catch(err) {console.log(err);}
