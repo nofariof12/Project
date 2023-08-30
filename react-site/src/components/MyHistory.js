@@ -35,15 +35,22 @@ function MyHistory({ activeMenu }) {
                 </tr>
               </thead>
               <tbody>
-                {historyData.map((item, index=0) => (
-                    item?(<tr key={index++}>
-                      <td>{item.category}</td>
-                      <td>{item.search}</td>
-                      <td>{item.results}</td>
-                    </tr> ):'' 
-                ))}
+                {
+                  JSON.stringify(historyData)!==JSON.stringify([{},{},{}])?(
+                  historyData.map((item, index=0) => (
+                    item.category?(
+                    <tr key={index++}>
+                        <td>{item.category}</td>
+                        <td>{item.search}</td>
+                        <td>{item.results}</td>
+                      </tr> 
+                    ):''
+                  ))):console.log(JSON.stringify(historyData))
+                }               
               </tbody>
             </table>
+            <br></br>       
+            <div>{JSON.stringify(historyData)===JSON.stringify([{},{},{}])? <p>no history was found</p>:''}</div>
           </div>
         </div>
         );

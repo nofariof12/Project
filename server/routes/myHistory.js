@@ -61,7 +61,7 @@ router.post('/update', async function (req, res) {
 
 router.get('/clear', async function(req, res){//for dibug only. user havent acsess
     let allHistory = [{},{},{}];
-    let sql= `UPDATE users SET history='${JSON.stringify(allHistory)}' WHERE email = 'a@a.com'`;
+    let sql= `UPDATE users SET history='${JSON.stringify(allHistory)}' WHERE email = '${global.user}'`;
         await con.query(sql, (err)=>{
             console.log(err?err.message:global.user);
         });
