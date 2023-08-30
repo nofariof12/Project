@@ -28,12 +28,12 @@ router.get('/', async function (req, res){
     res.send('ok');
 })
 
-router.get('/drop', async function (req, res){
-    await con.connect(function (err) {console.log(err?err.message:'mysql start');});
-    await con.query('drop database registered', (err)=>{console.log(err?err.message:'drop')});
-    create();
-    res.send('drpo');
-})
+// router.get('/drop', async function (req, res){
+//     await con.connect(function (err) {console.log(err?err.message:'mysql start');});
+//     await con.query('drop database registered', (err)=>{console.log(err?err.message:'drop')});
+//     create();
+//     res.send('drpo');
+// })
 
 
 module.exports = router;
